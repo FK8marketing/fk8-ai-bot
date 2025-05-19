@@ -35,7 +35,7 @@ KEYWORD_RESPONSES = {
     "xin code": ["Sau khi tạo tài khoản thành công, truy cập mục khuyến mãi → chọn 'Nhận 555K.Cần hỗ trợ thêm, liên hệ @CS1_FK8 hoặc @CS2_FK8 nha"],
     "tvm":["🎁 Nhận ngay 555K khi đăng ký!"],
     "thành viên mới": ["💰Phần thưởng 555K sẽ được cộng khi bạn hoàn thành 3 bước: Đăng ký – Liên kết – Nhận.Vẫn chưa nhận được @CS1_FK8 hoặc @CS2_FK8 để được hỗ trợ "],
-    "nạp đầu slot":[
+    "nạp đầu slot": [
         "🎰 NẠP LẦN ĐẦU SLOT – TẶNG 100%",
         "🔥 Khuyến mãi hot mỗi ngày, nhắn ngay CS1 hoặc CS2 để biết thêm chi tiết!",
         "🎯 Ưu đãi slot lần đầu – thưởng đến 3 triệu!",
@@ -51,8 +51,8 @@ KEYWORD_RESPONSES = {
         "📊 Tỷ lệ linh hoạt tùy theo sảnh chơi và cấp độ VIP"
     ],
     "khuyến mãi": [
-        "🎉 Ưu đãi hấp dẫn đang chờ bạn! Inbox CS1 hoặc CS2 nhé!",
-        "🔥 Khuyến mãi hot mỗi ngày, nhắn ngay CS1 hoặc CS2 để biết thêm chi tiết",
+        "🎉 Ưu đãi hấp dẫn đang chờ bạn! Inbox @CS1_FK8 hoặc @CS2_FK8 nhé!",
+        "🔥 Khuyến mãi hot mỗi ngày, nhắn ngay @CS1_FK8 hoặc @CS2_FK8 để biết thêm chi tiết",
     ],
     "Trận hot": [
         "🎯 Bạn theo dõi thêm tại nhóm FK8 cập nhậtthông tin nha",
@@ -82,15 +82,19 @@ KEYWORD_RESPONSES = {
         "🧠 Theo dõi phân tích chi tiết tại nhóm FK8 thông tin của team nhé",
         "🔍 Kèo mới luôn được admin thông báo, bạn theo dõi sát nha"
     ],
-    "liên hệ": "📞 Bạn có thể nhắn CS1: @CS1_FK8 hoặc CS2: @CS2_FK8 nhé!",
-    "gôm lúa": "💸 Lụm kèo rồi anh em ơi, kèo thơm phức!",
-    "lụm": "💰 Gôm lúa xịn xò, chiến tiếp anh em!",
-    "win": "🔥 Win đậm, chốt đơn chất lượng!",
-    "thắng": "💰 Lãi về rồi, nghỉ hay vào tiếp đây anh em?",
-    "lose": "😢 Không sao đâu anh, thua keo này ta bày keo khác!",
+    "liên hệ": ["📞 Bạn có thể nhắn CS1: @CS1_FK8 hoặc CS2: @CS2_FK8 hỗ trợ nhé!"],
+    "gôm lúa": ["💸 Lụm kèo rồi anh em ơi, kèo thơm phức!"],
+    "lụm": ["💰 Gôm lúa xịn xò, chiến tiếp anh em!"],
+    "win": ["🔥 Win đậm, chốt đơn chất lượng!"],
+    "thắng": ["💰 Lãi về rồi, nghỉ hay vào tiếp đây anh em?"],
+    "lose": ["😢 Không sao đâu anh, thua keo này ta bày keo khác!"],
     "Thua": "làm lại trận tiếp không anh,phản tỷ số là đường dài nha !",
-    "nạp đầu": "🎯 Khi nạp lần đầu, bạn được tặng tối đa 999K đó nha! Liên hệ CSKH để nhận khuyến mãi.",
-    "nạp đầu": "🎯 Ưu đãi cực hấp dẫn cho lần nạp đầu tiên,thưởng tối đa 999K tại phản tỷ số,Nổ hũ: tặng 100% đến 3 triệu,Thể thao: thưởng 50% khi nạp từ 500K.",
+    "nạp đầu": [
+    "🎯 Khi nạp lần đầu, bạn được tặng tối đa 999K đó nha! Liên hệ CSKH để nhận khuyến mãi.",
+    "🎯 Ưu đãi cực hấp dẫn cho lần nạp đầu tiên, thưởng tới đa 999K tại phần tỷ số.",
+    "🎯 Tặng 100% đến 3 triệu. Thể thao: thưởng 50% khi nạp từ 500K."
+],
+
 }
 
 # Hàm kiểm tra từ khóa
