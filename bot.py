@@ -91,10 +91,29 @@ KEYWORD_RESPONSES = {
     "Thua": "làm lại trận tiếp không anh,phản tỷ số là đường dài nha !",
     "nạp đầu": [
     "🎯 Khi nạp lần đầu, bạn được tặng tối đa 999K đó nha! Liên hệ CSKH để nhận khuyến mãi.",
-    "🎯 Ưu đãi cực hấp dẫn cho lần nạp đầu tiên, thưởng tới đa 999K tại phần tỷ số.",
-    "🎯 Tặng 100% đến 3 triệu. Thể thao: thưởng 50% khi nạp từ 500K."
+    "💸 Ưu đãi cực hấp dẫn cho lần nạp đầu tiên, thưởng tới đa 999K tại phần tỷ số.",
+    "💰 Tặng 100% đến 3 triệu. Thể thao: thưởng 50% khi nạp từ 500K."
 ],
-
+    "nạp lần đầu": [
+    "💰 Khi nạp lần đầu, bạn được tặng tối đa 999K đó nha! Liên hệ CSKH để nhận khuyến mãi.",
+    "💸 Ưu đãi cực hấp dẫn cho lần nạp đầu tiên, thưởng tới đa 999K tại phần tỷ số.",
+    "🔥 Tặng 100% đến 3 triệu. Thể thao: thưởng 50% khi nạp từ 500K."
+],
+    "nạp chậm": [
+    "🎯 Dạ có giao dịch đang không ổn định hoặc đang quá tải, anh chờ 5 phút nếu vẫn chưa nhận được anh liên hệ CSKH trực tuyến hỗ trợ nhé.",
+    "📞 Anh liên hệ  Admin @CS1_FK8 hoặc CS2: @CS2_FK8 để hỗ trợ ngay cho anh nhé",
+    "📩 Anh ơi, mình nhắn liền cho admin @CS1_FK8 hoặc CS2: @CS2_FK8 hoặc CSKH trực tuyến hỗ trợ cho mình nhé."
+],
+    "rút chậm": [
+    "🔍 Anh liên hệ CSkH kiểm tra ngay cho anh nhé",
+    "🎯 Anh mình rút về chậm ạ, anh liên hệ  CSKH trực tuyến hoặc admin nhóm hỗ trợ ngay anh nhé",
+    "🎯 Anh ơi, mình nhắn liền cho admin @CS1_FK8 hoặc CS2: @CS2_FK8 hoặc CSKH trực tuyến hỗ trợ cho mình nha."
+],
+    "nạp tiền có km không ": [
+    "🔥 Dạ có chứ anh, đang có nhiều ưu đãi cho thành viên đó ạ, mình có thể tham khảo trên trang chủ hoặc liên hệ Admin nhóm hỗ trợ anh nhé",
+    "💰 Mình đang muốn tham gia sản phẩm nào cụ thể để em hỗ trợ cho anh ạ",
+    "💸 Anh ơi, mình nhắn liền cho admin @CS1_FK8 hoặc CS2: @CS2_FK8 hoặc CSKH trực tuyến hỗ trợ cho mình nha."
+],
 }
 
 # Hàm kiểm tra từ khóa
@@ -140,7 +159,17 @@ def webhook():
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             messages=[
-                {"role": "system", "content": "Bạn là một trợ lý AI thân thiện của FK8. Trả lời ngắn gọn, vui vẻ, tự nhiên. Ưu tiên giải thích rõ ràng các khái niệm như phản tỷ số, khuyến mãi, kèo bóng đá nếu người dùng hỏi. Nếu không chắc chắn câu hỏi hoặc nội dung không phù hợp, hãy đề nghị người dùng liên hệ CS1 hoặc CS2 để được hỗ trợ thêm."},
+                {
+       "role": "system",
+       "content": (
+       "Bạn là một trợ lý AI thân thiện,  vui vẻ, hoà đồng của FK8. "
+       "Luôn trả lời ngắn gọn (dưới 50 từ), rõ ràng, thân thiện. "
+       "Nếu phát hiện nội dung có mâu thuẫn hoặc tranh cãi, hãy phản hồi một cách hòa nhã, trung lập và gợi ý người dùng liên hệ CS1 hoặc CS2 để được hỗ trợ thêm. "
+       "Nếu không chắc chắn về câu hỏi hoặc nội dung không phù hợp, "
+       "hãy trả lời: 'Dạ anh vui lòng liên hệ @CS1_FK8 hoặc @CS2_FK8 để được hỗ trợ thêm nhé!' "
+       "Tuyệt đối không đoán bừa hoặc trả lời sai nội dung."
+  )
+},
                 {"role": "user", "content": user_text}
             ]
         )
