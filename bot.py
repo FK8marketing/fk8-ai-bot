@@ -51,7 +51,11 @@ KEYWORD_RESPONSES = {
         "📊 Tỷ lệ linh hoạt tùy theo sảnh chơi và cấp độ VIP"
     ],
     "khuyến mãi": [
-        "🎉 Ưu đãi hấp dẫn đang chờ bạn! Inbox @CS1_FK8 hoặc @CS2_FK8 nhé!",
+        "🎉 Ưu đãi hấp dẫn đang chờ anh đó ạ! Inbox @CS1_FK8 hoặc @CS2_FK8 nhé!",
+        "🔥 Khuyến mãi hot mỗi ngày, nhắn ngay @CS1_FK8 hoặc @CS2_FK8 để biết thêm chi tiết",
+    ],
+    "Nạp lại": [
+        "🎉 Hiện có nhiều ưu đãi hấp dẫn đó anh, mình cần hỗ trợ về khuyến mãi liên hệ @CS1_FK8 hoặc @CS2_FK8 nhé!",
         "🔥 Khuyến mãi hot mỗi ngày, nhắn ngay @CS1_FK8 hoặc @CS2_FK8 để biết thêm chi tiết",
     ],
     "Trận hot": [
@@ -83,6 +87,7 @@ KEYWORD_RESPONSES = {
         "🔍 Kèo mới luôn được admin thông báo, bạn theo dõi sát nha"
     ],
     "liên hệ": ["📞 Bạn có thể nhắn CS1: @CS1_FK8 hoặc CS2: @CS2_FK8 hỗ trợ nhé!"],
+    "Rút nhanh": ["Thật tuyệt khi biết rằng anh/chị hài lòng với dịch vụ của FK8! Chúng tôi sẽ tiếp tục nâng cao chất lượng để phục vụ tốt hơn nữa."],
     "gôm lúa": ["💸 Lụm kèo rồi anh em ơi, kèo thơm phức!"],
     "lụm": ["💰 Gôm lúa xịn xò, chiến tiếp anh em!"],
     "win": ["🔥 Win đậm, chốt đơn chất lượng!"],
