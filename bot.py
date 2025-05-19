@@ -17,7 +17,7 @@ def log_message(user_id, user_text):
         f.write(f"[{timestamp}] User {user_id}: {user_text}\n")
 
 # Từ khóa và phản hồi
-KEYWORD_RESPONSES = {
+KEYWORD_RESPONSES_RAW = {
     "miễn phí": [
         "🎁 Nhận ngay 555K khi đăng ký,cần hỗ trợ thêm, liên hệ @CS1_FK8 hoặc @CS2_FK8 nhé!",
         "🔥 Tặng 555K liền tay cho tân thủ!",
@@ -31,13 +31,19 @@ KEYWORD_RESPONSES = {
         "💸 Chỉ cần đăng ký là có 555K!"
     ],
     "free bet": ["🎁 Bấm tham gia ngay 555K khi đăng ký! Không cần nạp trước, nhận lợi nhuận lên đến 100K.Cần hỗ trợ thêm, liên hệ @CS1_FK8 hoặc @CS2_FK8"],
+    "FK8": ["🎁 nền tảng kết hợp giữa thể thao và dự đoán kết quả một cách logic."],
     "trải nghiệm": ["🎉Đăng ký tài khoản FK8, liên kết ngân hàng & số điện thoại → nhận ngay 555K.Cần hỗ trợ thêm inbox ngay @CS1_FK8 hoặc @CS2_FK8 nha!"],
     "xin code": ["Sau khi tạo tài khoản thành công, truy cập mục khuyến mãi → chọn 'Nhận 555K.Cần hỗ trợ thêm, liên hệ @CS1_FK8 hoặc @CS2_FK8 nha"],
     "tvm":["🎁 Nhận ngay 555K khi đăng ký!"],
     "thành viên mới": ["💰Phần thưởng 555K sẽ được cộng khi bạn hoàn thành 3 bước: Đăng ký – Liên kết – Nhận.Vẫn chưa nhận được @CS1_FK8 hoặc @CS2_FK8 để được hỗ trợ "],
     "nạp đầu slot": [
         "🎰 NẠP LẦN ĐẦU SLOT – TẶNG 100%",
-        "🔥 Khuyến mãi hot mỗi ngày, nhắn ngay CS1 hoặc CS2 để biết thêm chi tiết!",
+        "🔥 Khuyến mãi 100% nạp đầu tại Slot, nhắn ngay  @CS1_FK8 hoặc @CS2_FK8 để biết thêm chi tiết!",
+        "🎯 Ưu đãi slot lần đầu – thưởng đến 3 triệu!",
+    ],
+    "nổ hũ": [
+        "🎰 NẠP LẦN ĐẦU NỔ HŨ – TẶNG 100%, liên hệ admin hỗ trợ thêm thông tin chi tiết về khuyến mãi. ",
+        "🔥 Khuyến mãi 100% nạp đầu tại Slot, nhắn ngay  @CS1_FK8 hoặc @CS2_FK8 để biết thêm chi tiết!",
         "🎯 Ưu đãi slot lần đầu – thưởng đến 3 triệu!",
     ],
     "nạp đầu thể thao": [
@@ -56,7 +62,7 @@ KEYWORD_RESPONSES = {
     ],
     "Nạp lại": [
         "🎉 Hiện có nhiều ưu đãi hấp dẫn đó anh, mình cần hỗ trợ về khuyến mãi liên hệ @CS1_FK8 hoặc @CS2_FK8 nhé!",
-        "🔥 Khuyến mãi hot mỗi ngày, nhắn ngay @CS1_FK8 hoặc @CS2_FK8 để biết thêm chi tiết",
+        "🔥 Bên em  đang cập nhật thêm các khuyến mãi trong thời gian sắp tối, anh theo dõi trên nhóm  giúp em ,cần hỗ trợ thêm nhắn ngay @CS1_FK8 hoặc @CS2_FK8 để biết thêm chi tiết",
     ],
     "Trận hot": [
         "🎯 Bạn theo dõi thêm tại nhóm FK8 cập nhậtthông tin nha",
@@ -86,7 +92,7 @@ KEYWORD_RESPONSES = {
         "🧠 Theo dõi phân tích chi tiết tại nhóm FK8 thông tin của team nhé",
         "🔍 Kèo mới luôn được admin thông báo, bạn theo dõi sát nha"
     ],
-    "liên hệ": ["📞 Bạn có thể nhắn CS1: @CS1_FK8 hoặc CS2: @CS2_FK8 hỗ trợ nhé!"],
+    "hỗ trợ": ["📞 Bạn có thể nhắn CS1: @CS1_FK8 hoặc CS2: @CS2_FK8 hỗ trợ nhé!"],
     "Rút nhanh": ["Thật tuyệt khi biết rằng anh/chị hài lòng với dịch vụ của FK8! Chúng tôi sẽ tiếp tục nâng cao chất lượng để phục vụ tốt hơn nữa."],
     "gôm lúa": ["💸 Lụm kèo rồi anh em ơi, kèo thơm phức!"],
     "lụm": ["💰 Gôm lúa xịn xò, chiến tiếp anh em!"],
@@ -114,13 +120,18 @@ KEYWORD_RESPONSES = {
     "🎯 Anh mình rút về chậm ạ, anh liên hệ  CSKH trực tuyến hoặc admin nhóm hỗ trợ ngay anh nhé",
     "🎯 Anh ơi, mình nhắn liền cho admin @CS1_FK8 hoặc CS2: @CS2_FK8 hoặc CSKH trực tuyến hỗ trợ cho mình nha."
 ],
-    "nạp tiền có km không ": [
-    "🔥 Dạ có chứ anh, đang có nhiều ưu đãi cho thành viên đó ạ, mình có thể tham khảo trên trang chủ hoặc liên hệ Admin nhóm hỗ trợ anh nhé",
+    "phản tỷ số": [
+    "🔥 Phản Tỷ Số là cách chơi đi ngược – chọn kết quả sai để chiến thắng!",
+    "🔥 Đây là chiến thuật soi kèo logic, không cần đúng – chỉ cần đoán sai bạn sẽ chiến thắng.",
+    "🔥 Phản Tỷ Số không phải may rủi, mà là cách tư duy khác biệt,  cược vào tỷ số không chính xác bạn sẽ chiến thắng."
+],
+    "nạp tiền có ": [
+    "🔥 Dạ Fk8 đang có nhiều ưu đãi cho thành viên đó ạ, mình có thể tham khảo trên trang chủ hoặc liên hệ Admin nhóm hỗ trợ anh nhé",
     "💰 Mình đang muốn tham gia sản phẩm nào cụ thể để em hỗ trợ cho anh ạ",
     "💸 Anh ơi, mình nhắn liền cho admin @CS1_FK8 hoặc CS2: @CS2_FK8 hoặc CSKH trực tuyến hỗ trợ cho mình nha."
 ],
 }
-
+KEYWORD_RESPONSES = {k.lower(): v for k, v in KEYWORD_RESPONSES_RAW.items()}
 # Hàm kiểm tra từ khóa
 
 def check_keywords(text):
@@ -168,11 +179,10 @@ def webhook():
        "role": "system",
        "content": (
        "Bạn là một trợ lý AI thân thiện,  vui vẻ, hoà đồng của FK8. "
-       "Luôn trả lời ngắn gọn (dưới 50 từ), rõ ràng, thân thiện. "
+       "Luôn trả lời ngắn gọn (từ 1-2 câu,dưới 50 từ), rõ ràng, thân thiện, dễ hiểu "
        "Nếu phát hiện nội dung có mâu thuẫn hoặc tranh cãi, hãy phản hồi một cách hòa nhã, trung lập và gợi ý người dùng liên hệ CS1 hoặc CS2 để được hỗ trợ thêm. "
-       "Nếu không chắc chắn về câu hỏi hoặc nội dung không phù hợp, "
-       "hãy trả lời: 'Dạ anh vui lòng liên hệ @CS1_FK8 hoặc @CS2_FK8 để được hỗ trợ thêm nhé!' "
-       "Tuyệt đối không đoán bừa hoặc trả lời sai nội dung."
+       "Nếu không chắc chắn và cơ sở dữ liệu về câu hỏi hoặc nội dung không phù hợp gợi ý liên hệ @CS1_FK8 hoặc @CS2_FK8 để được hỗ trợ thêm nhé!' "
+       "Tuyệt đối không tự đoán hoặc trả lời sai nội dung."
   )
 },
                 {"role": "user", "content": user_text}
