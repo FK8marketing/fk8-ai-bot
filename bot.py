@@ -178,8 +178,8 @@ def webhook():
 
     # ❌ Chặn chat riêng tư
     if chat_type == "private":
-        send_message(chat_id, "❌ Bot không hỗ trợ nhắn riêng. Vui lòng tham gia nhóm liên hệ @CS1_FK8 hoặc @CS2_FK8 để được hỗ trợ.")
-        return "ok"
+       print("🔒 Bỏ qua tin nhắn riêng")
+       return "ok"
 
     if not user_text:
         return "ok"
