@@ -164,6 +164,7 @@ def send_message(chat_id, text):
 # Webhook Flask
 @app.route("/webhook", methods=["POST"])
 def webhook():
+    print("✅ Webhook received a POST request")
     print("🔥 Flask webhook /webhook is active!")
     data = request.get_json()
     print("== RAW DATA ==")
