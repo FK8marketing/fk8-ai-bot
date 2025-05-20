@@ -32,9 +32,8 @@ KEYWORD_RESPONSES_RAW = {
     ],
     "free": ["🎁 Bấm tham gia ngay 555K khi đăng ký! Không cần nạp trước, nhận lợi nhuận lên đến 100K.Cần hỗ trợ thêm, liên hệ @CS1_FK8 hoặc @CS2_FK8"],
     "FK8": [
-    "🎁 nền tảng kết hợp giữa thể thao và dự đoán kết quả một cách logic."
-    "FK8 là nền tảng mới nhưng đang rất hot đó 🔥 Bên em chơi kiểu Phản Tỷ Số –  hiểu đơn  giản là đoán sai mà đúng thời điểm là ăn nha 😎 Anh muốn tìm hiểu thêm phần nào để em nói kỹ hơn?"
-  ],
+    "🎁 nền tảng kết hợp giữa thể thao và dự đoán kết quả một cách logic.", 
+    "FK8 là nền tảng mới nhưng đang rất hot đó 🔥 Bên em có kiểu cược Phản Tỷ Số –  hiểu đơn  giản là đoán sai mà đúng thời điểm là ăn nha 😎."  ],
     "uy tín": ["Dạ uy tín anh ơi ✨ FK8 có hỗ trợ CSKH, thưởng tân thủ 555K rõ ràng, chơi vui – thưởng thật 💸 Anh cần em gửi link hỗ trợ trực tiếp không ạ?"],
     "trải nghiệm": ["🎉Đăng ký tài khoản FK8, liên kết ngân hàng & số điện thoại → nhận ngay 555K.Cần hỗ trợ thêm inbox ngay @CS1_FK8 hoặc @CS2_FK8 nha!"],
     "code": ["Sau khi tạo tài khoản thành công, truy cập mục khuyến mãi → chọn 'Nhận 555K.Cần hỗ trợ thêm, liên hệ @CS1_FK8 hoặc @CS2_FK8 nha"],
@@ -164,24 +163,7 @@ def send_message(chat_id, text):
 # Webhook Flask
 @app.route("/webhook", methods=["POST"])
 def webhook():
-    print("✅ Webhook received a POST request")
-    print("🔥 Flask webhook /webhook is active!")
-    data = request.get_json()
-    print("== RAW DATA ==")
-    print(data)  # 👈 Log full dữ liệu Telegram gửi về
-
-    msg = data.get("message", {})
-    chat = msg.get("chat", {})
-    chat_id = chat.get("id")
-    chat_type = chat.get("type", "")
-    user_text = msg.get("text", "") or msg.get("caption", "")
-
-    print(f"[Webhook] Chat type: {chat_type}, Chat ID: {chat_id}, Text: '{user_text}'")
-
-    # ❌ Chặn chat riêng tư
-    if chat_type == "private":
-       print("🔒 Bỏ qua tin nhắn riêng")
-       return "ok"
+    ...
 
     if not user_text:
         return "ok"
@@ -198,15 +180,15 @@ def webhook():
             model="gpt-3.5-turbo",
             messages=[
                 {
-       "role": "system",
-       "content": (
-       "Bạn là một trợ lý AI thân thiện,  vui vẻ, hoà đồng của FK8.Chỉ trả lời câu hỏi về khuyến mãi , phản tỷ số,  kèo ,nạp , rút,  giao dịch và các vấn đề liên quan đến  FK8 "
-       "Luôn trả lời ngắn gọn (từ 1-2 câu,dưới 50 từ), rõ ràng, thân thiện, dễ hiểu "
-       "Nếu phát hiện nội dung có mâu thuẫn hoặc tranh cãi, hãy phản hồi một cách hòa nhã, trung lập và gợi ý người dùng liên hệ CS1 hoặc CS2 để được hỗ trợ thêm. "
-       "Nếu không chắc chắn và cơ sở dữ liệu về nạp tiền,  rút tiền,  đăng ký tài khoản, các lĩnh vực về nhà cái,  thể thao câu hỏi hoặc nội dung không phù hợp đều yêu cầu liên hệ @CS1_FK8 hoặc @CS2_FK8 để được hỗ trợ thêm  "
-       
-  )
-},
+                    "role": "system",
+                    "content": (
+                        "Bạn là một trợ lý AI thân thiện và chuyên nghiệp của FK8. "
+                        "Nhiệm vụ của bạn là hỗ trợ người dùng về khuyến mãi, thể thao, phản tỷ số, "
+                        "hướng dẫn tham gia, liên hệ CSKH. Trả lời ngắn gọn (1-2 câu), vui vẻ, có thể dùng emoji. "
+                        "Không được nói 'tôi không biết', 'không có trong dữ liệu' hoặc tương tự. "
+                        "Nếu câu hỏi vượt ngoài phạm vi hỗ trợ, hãy đề nghị liên hệ CSKH hoặc admin."
+                    )
+                },
                 {"role": "user", "content": user_text}
             ]
         )
@@ -217,9 +199,10 @@ def webhook():
 
     return "ok"
 
-import os
-
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
+
+
+       
 
