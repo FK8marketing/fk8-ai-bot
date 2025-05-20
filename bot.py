@@ -163,12 +163,18 @@ def send_message(chat_id, text):
 # Webhook Flask
 @app.route("/webhook", methods=["POST"])
 def webhook():
+    print("🔥 Flask webhook /webhook is active!")
     data = request.get_json()
+    print("== RAW DATA ==")
+    print(data)  # 👈 Log full dữ liệu Telegram gửi về
+
     msg = data.get("message", {})
     chat = msg.get("chat", {})
     chat_id = chat.get("id")
     chat_type = chat.get("type", "")
-    user_text = msg.get("text", "")
+    user_text = msg.get("text", "") or msg.get("caption", "")
+
+    print(f"[Webhook] Chat type: {chat_type}, Chat ID: {chat_id}, Text: '{user_text}'")
 
     # ❌ Chặn chat riêng tư
     if chat_type == "private":
