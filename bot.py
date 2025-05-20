@@ -159,6 +159,7 @@ def log_message(user_id, user_text):
 def send_message(chat_id, text):
     url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
     requests.post(url, json={"chat_id": chat_id, "text": text})
+    print("Send response:", res.text)
 
 # Webhook Flask
 @app.route("/webhook", methods=["POST"])
