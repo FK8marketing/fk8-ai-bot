@@ -148,55 +148,50 @@ def check_keywords(text):
     return None
 
 # Gửi tin nhắn Telegram
-from datetime import datetime
-
-def log_message(user_id, user_text):
-    with open("log.txt", "a", encoding="utf-8") as f:
-        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        f.write(f"[{timestamp}] User {user_id}: {user_text}\n")
-
 def send_message(chat_id, text):
     url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
-    requests.post(url, json={"chat_id": chat_id, "text": text})
+    res = requests.post(url, json={"chat_id": chat_id, "text": text})
     print("Send response:", res.text)
 
 # Webhook Flask
-@app.route("/webhook", methods=["POST"])
+@app.route('/webhook', methods=['POST'])
 def webhook():
-    ...
+    data = request.get_json()
+    print("Received data:", data)
 
-    if not user_text:
+    if "message" in data and "text" in data["message"]:
+        user_text = data["message"]["text"]
+        chat_id = data["message"]["chat"]["id"]
+    else:
         return "ok"
 
-    log_message(chat_id, user_text)
+    log_message(data["message"]["from"]["id"], user_text)
 
-    quick_reply = check_keywords(user_text)
-    if quick_reply:
-        send_message(chat_id, quick_reply)
-        return "ok"
+    reply = check_keywords(user_text)
+    if not reply:
+        try:
+            response = openai.ChatCompletion.create(
+                model="gpt-3.5-turbo",
+                messages=[
+                    {
+                        "role": "system",
+                        "content": (
+                            "Bạn là một trợ lý AI thân thiện và chuyên nghiệp của FK8. "
+                            "Nhiệm vụ của bạn là hỗ trợ người dùng về khuyến mãi, thể thao, phản tỷ số, "
+                            "hướng dẫn tham gia, liên hệ CSKH. Trả lời ngắn gọn (1-2 câu), vui vẻ, có thể dùng emoji. "
+                            "Không được nói 'tôi không biết', 'không có trong dữ liệu' hoặc tương tự. "
+                            "Nếu câu hỏi vượt ngoài phạm vi hỗ trợ, hãy đề nghị liên hệ CSKH hoặc admin."
+                        )
+                    },
+                    {"role": "user", "content": user_text}
+                ]
+            )
+            reply = response["choices"][0]["message"]["content"]
+        except Exception as e:
+            print("Webhook error:", e)
+            reply = "Dạ hiện tại hệ thống đang bận, anh thử lại sau chút nhé! 🛠️"
 
-    try:
-        response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
-            messages=[
-                {
-                    "role": "system",
-                    "content": (
-                        "Bạn là một trợ lý AI thân thiện và chuyên nghiệp của FK8. "
-                        "Nhiệm vụ của bạn là hỗ trợ người dùng về khuyến mãi, thể thao, phản tỷ số, "
-                        "hướng dẫn tham gia, liên hệ CSKH. Trả lời ngắn gọn (1-2 câu), vui vẻ, có thể dùng emoji. "
-                        "Không được nói 'tôi không biết', 'không có trong dữ liệu' hoặc tương tự. "
-                        "Nếu câu hỏi vượt ngoài phạm vi hỗ trợ, hãy đề nghị liên hệ CSKH hoặc admin."
-                    )
-                },
-                {"role": "user", "content": user_text}
-            ]
-        )
-        reply = response["choices"][0]["message"]["content"]
-        send_message(chat_id, reply)
-    except Exception as e:
-        send_message(chat_id, f"Lỗi AI: {e}")
-
+    send_message(chat_id, reply)
     return "ok"
 
 if __name__ == "__main__":
