@@ -145,7 +145,7 @@ KEYWORD_RESPONSES_RAW.update({
     "trận bảo hiểm": [
         "✅ Đúng rồi anh! Hiện đang có chương trình *bảo toàn vốn tỷ số 3-3*, nhớ theo dõi nhóm Telegram để không bỏ lỡ!"
     ],
-    "khuyến mãi bảo toàn": [
+    "hoàn vốn": [
         "📢 Hiện bên em đang có *khuyến mãi bảo toàn vốn tỷ số 3-3* 💥\nTrận sẽ được admin cập nhật trên nhóm Telegram.\n👉 Anh hãy tham gia nhóm và theo dõi để chọn đúng trận và nhận được ưu đãi nhé!"
     ]
 })
