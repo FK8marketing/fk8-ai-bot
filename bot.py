@@ -140,7 +140,7 @@ KEYWORD_RESPONSES_RAW = {
 # ➕ Thêm từ khóa bảo toàn vốn
 KEYWORD_RESPONSES_RAW.update({
     "bảo toàn": [
-        "🔒 *Bảo toàn vốn* là gì?\nKhi bạn đặt cược vào trận được bảo toàn và chọn đúng tỷ số bảo toàn, nếu ra đúng kết quả thì bạn được *hoàn lại tiền gốc* đã đặt cược."
+        "🔒 *Ưu đãi về Bảo toàn vốn*\nKhi anh đặt cược vào trận được bảo toàn và chọn đúng tỷ số bảo toàn, nếu ra đúng kết quả thì anh được *hoàn lại tiền gốc* đã đặt cược.\n👉 Anh hãy tham gia nhóm và theo dõi để chọn đúng trận và nhận được ưu đãi nhé!"
     ],
     "có bảo toàn": [
         "📢 Đúng rồi anh! Hiện đang có chương trình *bảo toàn vốn tỷ số 3-3*, nhớ theo dõi nhóm Telegram để không bỏ lỡ!"
@@ -163,7 +163,12 @@ def check_keywords(text):
 # Gửi tin nhắn Telegram
 def send_message(chat_id, text):
     url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
-    res = requests.post(url, json={"chat_id": chat_id, "text": text})
+    res = requests.post(url, json={
+    "chat_id": chat_id,
+    "text": text,
+    "parse_mode": "Markdown"
+})
+
     print("Send response:", res.text)
 # Lưu trạng thái người dùng khi hỏi "link đăng ký"
 REGISTRATION_FLOW = {}
