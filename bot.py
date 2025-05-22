@@ -140,12 +140,12 @@ KEYWORD_RESPONSES_RAW = {
 # ➕ Thêm từ khóa bảo toàn vốn
 KEYWORD_RESPONSES_RAW.update({
     "bảo toàn": [
-        "🔒 *Ưu đãi về Bảo toàn vốn*\nKhi anh đặt cược vào trận được bảo toàn và chọn đúng tỷ số bảo toàn, nếu ra đúng kết quả thì anh được *hoàn lại tiền gốc* đã đặt cược.\n👉 Anh hãy tham gia nhóm và theo dõi để chọn đúng trận và nhận được ưu đãi nhé!"
+        "💸 *Ưu đãi về Bảo toàn vốn*\nKhi anh đặt cược vào trận được bảo toàn và chọn đúng tỷ số bảo toàn, nếu ra đúng kết quả thì anh được *hoàn lại tiền gốc* đã đặt cược.\n👉 Anh hãy tham gia nhóm và theo dõi để chọn đúng trận và nhận được ưu đãi nhé!"
     ],
-    "có bảo toàn": [
-        "📢 Đúng rồi anh! Hiện đang có chương trình *bảo toàn vốn tỷ số 3-3*, nhớ theo dõi nhóm Telegram để không bỏ lỡ!"
+    "trận bảo hiểm": [
+        "✅ Đúng rồi anh! Hiện đang có chương trình *bảo toàn vốn tỷ số 3-3*, nhớ theo dõi nhóm Telegram để không bỏ lỡ!"
     ],
-    "trận bảo toàn": [
+    "khuyến mãi bảo toàn": [
         "📢 Hiện bên em đang có *khuyến mãi bảo toàn vốn tỷ số 3-3* 💥\nTrận sẽ được admin cập nhật trên nhóm Telegram.\n👉 Anh hãy tham gia nhóm và theo dõi để chọn đúng trận và nhận được ưu đãi nhé!"
     ]
 })
