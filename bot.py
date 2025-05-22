@@ -137,6 +137,19 @@ KEYWORD_RESPONSES_RAW = {
     "hướng dẫn tạo tài khoản  ": ["Anh truy cập vào trang chủ FK8 chọn giúp em 'Đăng ký' để tạo tài khoản,tiếp đến chọn tên tài khoản trên hệ thống cung cấp và nhập mật khẩu theo ý của anh (tối thiểu 6 ký tự số và chữ có chứa ký tự in hoa).Cần hỗ trợ thêm anh cứu inbox @CS1_FK8 hoặc CS2: @CS2_FK8 nhé ."],
     "momo ": ["💸FK8 có hỗ trợ nạp tiền theo phương thức online qua ngân hàng và cả ví điện tử (momo,viettelpay,zalopay) anh có thể vào mục nạp tiền để tham khảo các phương thức giao dịch anh nhé ."],
 }
+# ➕ Thêm từ khóa bảo toàn vốn
+KEYWORD_RESPONSES_RAW.update({
+    "bảo toàn": [
+        "🔒 *Bảo toàn vốn* là gì?\nKhi bạn đặt cược vào trận được bảo toàn và chọn đúng tỷ số bảo toàn, nếu ra đúng kết quả thì bạn được *hoàn lại tiền gốc* đã đặt cược."
+    ],
+    "có bảo toàn": [
+        "📢 Đúng rồi anh! Hiện đang có chương trình *bảo toàn vốn tỷ số 3-3*, nhớ theo dõi nhóm Telegram để không bỏ lỡ!"
+    ],
+    "trận bảo toàn": [
+        "📢 Hiện bên em đang có *khuyến mãi bảo toàn vốn tỷ số 3-3* 💥\nTrận sẽ được admin cập nhật trên nhóm Telegram.\n👉 Anh hãy tham gia nhóm và theo dõi để chọn đúng trận và nhận được ưu đãi nhé!"
+    ]
+})
+
 KEYWORD_RESPONSES = {k.lower(): v for k, v in KEYWORD_RESPONSES_RAW.items()}
 # Hàm kiểm tra từ khóa
 
@@ -152,6 +165,42 @@ def send_message(chat_id, text):
     url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
     res = requests.post(url, json={"chat_id": chat_id, "text": text})
     print("Send response:", res.text)
+# Lưu trạng thái người dùng khi hỏi "link đăng ký"
+REGISTRATION_FLOW = {}
+
+def handle_registration_flow(user_id, message):
+    step = REGISTRATION_FLOW.get(user_id, {}).get("step")
+    message = message.lower().strip()
+
+    if "link đăng ký" in message:
+        REGISTRATION_FLOW[user_id] = {"step": "ask_source"}
+        return "Bạn biết đến FK8 qua đâu? (Telegram hoặc Facebook)"
+    elif step == "ask_source":
+        REGISTRATION_FLOW[user_id]["source"] = message
+        REGISTRATION_FLOW[user_id]["step"] = "ask_device"
+        return "Bạn đang dùng thiết bị nào? (PC hoặc Mobile)"
+    elif step == "ask_device":
+        source = REGISTRATION_FLOW[user_id].get("source")
+        device = message
+        REGISTRATION_FLOW.pop(user_id, None)  # kết thúc luồng
+        return get_registration_link(source, device)
+    return None
+
+def get_registration_link(source, device):
+    source = source.lower()
+    device = device.lower()
+    if source == "telegram":
+        if device == "pc":
+            return "🔗 Đây là link đăng ký Telegram (PC):\nhttps://w1.fk8vip87063.shop/register.php?agent=FAX31"
+        elif device == "mobile":
+            return "📱 Đây là link đăng ký Telegram (Mobile):\nhttps://m1.fk8vip87063.shop/register.php?agent=FAX31"
+    elif source == "facebook":
+        if device == "pc":
+            return "🔗 Đây là link đăng ký Facebook (PC):\nhttps://w1.fk8vip87063.shop/register.php?agent=FCU21"
+        elif device == "mobile":
+            return "📱 Đây là link đăng ký Facebook (Mobile):\nhttps://m1.fk8vip87063.shop/register.php?agent=FCU21"
+    return "❗ Thông tin chưa chính xác, anh vui lòng trả lời lại giúp em nhé!"
+
 
 # Webhook Flask
 @app.route('/webhook', methods=['POST'])
@@ -166,6 +215,12 @@ def webhook():
         return "ok"
 
     log_message(data["message"]["from"]["id"], user_text)
+    # 👉 Xử lý theo luồng đăng ký nếu có
+    registration_reply = handle_registration_flow(chat_id, user_text)
+    if registration_reply:
+      send_message(chat_id, registration_reply)
+      return "ok"
+
 
     reply = check_keywords(user_text)
     if not reply:
